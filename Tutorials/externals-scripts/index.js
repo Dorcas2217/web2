@@ -30,3 +30,8 @@ btn4.onclick = function() {
   btn4.innerText = 'You clicked on me : )';
   console.log('onClickHandlerForBtn4::click');
 };
+
+const titre= document.querySelector("title");
+titre.addEventListener('click',alertdisplay);
+
+const alertdisplay = () => alert('bonjour tout le monde ');
