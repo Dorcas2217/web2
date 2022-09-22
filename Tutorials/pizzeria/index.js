@@ -2,6 +2,7 @@ const body = document.querySelector("body");
 
 body.addEventListener("click", startOrStopSound);
 
+
 function startOrStopSound() {
   const myAudioPlayer = document.querySelector("#audioPlayer");
 

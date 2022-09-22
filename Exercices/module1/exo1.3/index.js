@@ -1,17 +1,18 @@
-const btn = document.querySelector("#id");
+let click= document.getElementById("btn");
+let cpt=0;
 
-btn.addEventListener("click", delayAlert);
+click.onclick=function(){
+    cpt++;
+    console.log(cpt);
+    if(cpt>=5 && cpt<=9){
+        click.innerHTML="bravo";
 
-
-function delayAlert() {
-for (const cpt of click) {
-    if(cpt==5 && cpt<10){
-        
+    }else
+    if(cpt>=10){
+        click.innerHTML="maître";
     }
-    else
-    if(cpt>10){
-        alert('vous passé maître !!');
-    }
+
 }
 
-}
+
+
