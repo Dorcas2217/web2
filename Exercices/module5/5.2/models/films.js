@@ -1,7 +1,7 @@
-const express = require('express');
-const path = require('node:path');
 
+const path = require('node:path');
 const { serialize, parse } = require('../utils/json');
+
 const jsonDbPath = path.join(__dirname , '/../data/movies.json');
 
 
@@ -38,8 +38,10 @@ const Movies = [
   if(parametre !== undefined){
   const films = [...movies].filter((movie)=> movie.duration>= parametre) ;
     return(films);   
-  }
-    return (movies);  
+  } 
+    return (movies);
+  
+      
   };
 
   
@@ -81,3 +83,42 @@ const Movies = [
 
     return nextId;
   }
+
+  function deleteMovie(id){
+    const idParams =id ? parseInt(id,10): undefined;
+    if(idParams === undefined ) return undefined;
+    
+  const movieDB=parse(jsonDbPath,Movies);
+  const indexFilm = movieDB.findIndex((film)=> film.id===idParams);
+
+  if( indexFilm<0) {
+    return  undefined;
+  }
+
+  const filmsSupprimeTab=movieDB.splice(indexFilm,1);
+  
+  serialize(jsonDbPath,movieDB);
+
+  return filmsSupprimeTab[0];
+  }
+
+  function modifieMovie(id, elementToUpdate){
+    const idparams=id ? parseInt(id,10): undefined;
+    
+    if( !elementToUpdate ) return undefined;
+
+    const movieDB=parse(jsonDbPath, Movies);
+    const indexFilm= movieDB.findIndex((film)=> film.id===idparams);
+
+    if(indexFilm===undefined) return undefined;
+  
+    const moviUpdate={...movieDB[indexFilm], ...elementToUpdate};
+    movieDB[indexFilm]=moviUpdate;
+    serialize(jsonDbPath, movieDB);
+
+    return moviUpdate;
+  }
+
+  module.exports = {
+    readAllMovies,readMovieSelected,addMovie,deleteMovie,modifieMovie
+  };
