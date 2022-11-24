@@ -38,9 +38,10 @@ router.get('/', (req, res, next) => {
   let orderedMenu;
   console.log(`order by ${orderByTitle ?? 'not requested'}`);
   if (orderByTitle)
+  // içi le spread operator permet de faire une copie du tableau
     orderedMenu = [...MENU].sort((a, b) => a.title.localeCompare(b.title));
   if (orderByTitle === '-title') orderedMenu = orderedMenu.reverse();
-
+  
   console.log('GET /pizzas');
   res.json(orderedMenu ?? MENU);
 });
@@ -111,7 +112,7 @@ router.patch('/:id', (req, res) => {
   const foundIndex = MENU.findIndex(pizza => pizza.id == req.params.id);
 
   if (foundIndex < 0) return res.sendStatus(404);
-//j'ai pas compris ça !!
+//ça va j'ai compris !!
   const updatedPizza = {...MENU[foundIndex], ...req.body};
 
   MENU[foundIndex] = updatedPizza;
